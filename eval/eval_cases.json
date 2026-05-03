@@ -1,0 +1,62 @@
+[
+    {
+        "query": "How do I rotate a deploy key?",
+        "expected_route": "knowledge",
+        "keywords": ["deploy", "key", "rotate"]
+    },
+    {
+        "query": "What authentication methods does Helix support?",
+        "expected_route": "knowledge",
+        "keywords": ["auth"]
+    },
+    {
+        "query": "How do I set up CI/CD with helix-ci.yml?",
+        "expected_route": "knowledge",
+        "keywords": ["ci", "yml"]
+    },
+    {
+        "query": "What are Helix runners?",
+        "expected_route": "knowledge",
+        "keywords": ["runner"]
+    },
+    {
+        "query": "How does secret scanning work?",
+        "expected_route": "knowledge",
+        "keywords": ["secret", "scan"]
+    },
+    {
+        "query": "Show me my recent builds",
+        "expected_route": "account",
+        "keywords": ["build"]
+    },
+    {
+        "query": "What is my account status?",
+        "expected_route": "account",
+        "keywords": ["account", "status"]
+    },
+    {
+        "query": "How many concurrent builds can I run?",
+        "expected_route": "account",
+        "keywords": ["build", "concurrent"]
+    },
+    {
+        "query": "I need to escalate this issue to support",
+        "expected_route": "escalation",
+        "keywords": ["ticket", "escalat"]
+    },
+    {
+        "query": "Create a support ticket for a billing issue",
+        "expected_route": "escalation",
+        "keywords": ["ticket"]
+    },
+    {
+        "query": "Write me a poem about clouds",
+        "expected_route": "root",
+        "keywords": ["only help", "helix"]
+    },
+    {
+        "query": "Hello!",
+        "expected_route": "root",
+        "keywords": ["hello", "help", "hi"]
+    }
+]
