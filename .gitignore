@@ -44,4 +44,4 @@ eval/eval_results.json
 # Distribution / Build
 build/
 dist/
-*.egg-info/
+*.egg-info/server.log
