@@ -131,17 +131,17 @@ async def embed_texts(texts: list[str], batch_size: int = 20) -> list[list[float
         batch = texts[i : i + batch_size]
         
         # Retry loop for Free Tier rate limits (429)
-        max_retries = 3
+        max_retries = 5
         for attempt in range(max_retries):
             try:
                 batch_embeddings = await asyncio.to_thread(_embed_batch, batch, "retrieval_document")
                 all_embeddings.extend(batch_embeddings)
-                await asyncio.sleep(1.0)  # Slight delay to avoid hitting limits
+                await asyncio.sleep(2.0)  # Pacing: avoid hitting limits on next batch
                 break
             except Exception as e:
                 if "429" in str(e) and attempt < max_retries - 1:
-                    print(f"    Rate limit hit. Waiting 15 seconds (attempt {attempt + 1}/{max_retries})...")
-                    await asyncio.sleep(15.0)
+                    print(f"    Rate limit hit. Waiting 20 seconds (attempt {attempt + 1}/{max_retries})...")
+                    await asyncio.sleep(20.0)
                 else:
                     raise
     return all_embeddings
