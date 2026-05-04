@@ -22,6 +22,7 @@ import uuid
 from collections.abc import AsyncGenerator
 from dataclasses import dataclass
 from typing import Any
+from google.genai import types
 
 import structlog
 from sqlalchemy import select
@@ -57,8 +58,8 @@ async def _run_agent_and_collect(
     from google.adk.sessions import InMemorySessionService
 
     agent = build_root_agent(state)
-    runner = InMemoryRunner(agent=agent)
-    session_service = InMemorySessionService()
+    runner = InMemoryRunner(agent=agent, app_name="helix_srop")
+    session_service = runner.session_service
 
     adk_session = await session_service.create_session(
         app_name="helix_srop",
@@ -74,7 +75,10 @@ async def _run_agent_and_collect(
     response = runner.run_async(
         user_id=state.user_id,
         session_id=adk_session.id,
-        new_message={"role": "user", "parts": [{"text": user_message}]},
+        new_message=types.Content(
+            role="user",
+            parts=[types.Part(text=user_message)]
+        ),
     )
 
     async for event in response:
@@ -126,8 +130,8 @@ async def _run_agent_streaming(
     from google.adk.sessions import InMemorySessionService
 
     agent = build_root_agent(state)
-    runner = InMemoryRunner(agent=agent)
-    session_service = InMemorySessionService()
+    runner = InMemoryRunner(agent=agent, app_name="helix_srop")
+    session_service = runner.session_service
 
     adk_session = await session_service.create_session(
         app_name="helix_srop",
@@ -142,7 +146,10 @@ async def _run_agent_streaming(
     response = runner.run_async(
         user_id=state.user_id,
         session_id=adk_session.id,
-        new_message={"role": "user", "parts": [{"text": user_message}]},
+        new_message=types.Content(
+            role="user",
+            parts=[types.Part(text=user_message)]
+        ),
     )
 
     async for event in response:

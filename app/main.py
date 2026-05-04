@@ -1,3 +1,4 @@
+import os
 from contextlib import asynccontextmanager
 
 import structlog
@@ -8,11 +9,15 @@ from app.api import routes_sessions, routes_chat, routes_traces
 from app.api.errors import HelixError, helix_error_handler
 from app.db.session import init_db
 from app.obs.logging import configure_logging
+from app.settings import settings
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     configure_logging()
+    # Ensure Google SDK finds the key
+    if settings.google_api_key:
+        os.environ["GOOGLE_API_KEY"] = settings.google_api_key
     await init_db()
     yield
 
